@@ -1,0 +1,20 @@
+sequenceDiagram
+    participant user
+    participant browser
+    participant server
+
+    user->>browser: Write a new note
+    user->>browser: Press send button
+    note right of user: The browser renders the note <br> and send the data to the server
+
+    activate browser
+
+    browser->>server: POST note https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+    activate server
+    server-->>browser: {"message": "note created"}
+    deactivate server
+    note right of browser: The server stores the note and return a sucessfull message
+
+    browser-->>user: The user can see the new note created
+
+    deactivate browser

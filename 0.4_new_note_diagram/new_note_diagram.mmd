@@ -1,0 +1,35 @@
+sequenceDiagram
+    participant user
+    participant browser
+    participant server
+
+    user->>browser: Write note
+    user->>browser: Press send button
+
+    activate browser
+    browser->>server: POST note -> https://studies.cs.helsinki.fi/exampleapp/new_note
+    activate server
+    note right of browser: The server process de data sent by the browser
+    server-->>browser: Redirect to https://studies.cs.helsinki.fi/exampleapp/notes (302 code)
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: Return the css styles file
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    activate server
+    server-->>browser: Return the JS file
+    deactivate server
+    note right of browser: The browser executes the JS file
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: Return all of the notes
+    deactivate server
+    note right of browser: The browser renders the data
+
+    deactivate browser
+
+    browser-->>user: The user can see the new note
